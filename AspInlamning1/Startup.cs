@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +25,10 @@ namespace AspInlamning1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
+            services.AddDbContext<Data.EventDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DbContext"))
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

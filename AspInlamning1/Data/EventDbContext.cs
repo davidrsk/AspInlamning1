@@ -8,9 +8,8 @@ namespace AspInlamning1.Data
 {
     public class EventDbContext : DbContext
     {
-        //public DbSet<>
         public EventDbContext(DbContextOptions<EventDbContext> options)
-            : base (options)
+            : base(options)
         {
 
         }
@@ -18,5 +17,15 @@ namespace AspInlamning1.Data
         public DbSet<Models.Attendee> Attendees { get; set; }
         public DbSet<Models.Organizer> Organizers { get; set; }
         public DbSet<Models.Event> Events { get; set; }
+
+        public void Seed()
+        {
+            this.Database.EnsureCreated();
+
+            if (this.Attendees.Any())
+            {
+                return;
+            }
+        }
     }
 }

@@ -27,7 +27,7 @@ namespace AspInlamning1
             services.AddRazorPages();
 
             services.AddDbContext<Data.EventDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DbContext"))
+            options.UseSqlServer(Configuration.GetConnectionString("EventDbContext"))
             );
         }
 

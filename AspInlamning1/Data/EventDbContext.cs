@@ -13,19 +13,9 @@ namespace AspInlamning1.Data
         {
 
         }
-
         public DbSet<Models.Attendee> Attendees { get; set; }
         public DbSet<Models.Organizer> Organizers { get; set; }
         public DbSet<Models.Event> Events { get; set; }
 
-        public void Seed()
-        {
-            this.Database.EnsureCreated();
-
-            if (this.Attendees.Any())
-            {
-                return;
-            }
-        }
     }
 }

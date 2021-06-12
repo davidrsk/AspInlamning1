@@ -62,6 +62,35 @@ namespace AspInlamning1.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AttendeeEvent",
+                columns: table => new
+                {
+                    AttendeesId = table.Column<int>(type: "int", nullable: false),
+                    EventsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AttendeeEvent", x => new { x.AttendeesId, x.EventsId });
+                    table.ForeignKey(
+                        name: "FK_AttendeeEvent_Attendees_AttendeesId",
+                        column: x => x.AttendeesId,
+                        principalTable: "Attendees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AttendeeEvent_Events_EventsId",
+                        column: x => x.EventsId,
+                        principalTable: "Events",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AttendeeEvent_EventsId",
+                table: "AttendeeEvent",
+                column: "EventsId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Events_OrganizerId",
                 table: "Events",
@@ -70,6 +99,9 @@ namespace AspInlamning1.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AttendeeEvent");
+
             migrationBuilder.DropTable(
                 name: "Attendees");
 

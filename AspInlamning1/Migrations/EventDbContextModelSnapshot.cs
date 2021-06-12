@@ -96,13 +96,48 @@ namespace AspInlamning1.Migrations
                     b.ToTable("Organizers");
                 });
 
+            modelBuilder.Entity("AttendeeEvent", b =>
+                {
+                    b.Property<int>("AttendeesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EventsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AttendeesId", "EventsId");
+
+                    b.HasIndex("EventsId");
+
+                    b.ToTable("AttendeeEvent");
+                });
+
             modelBuilder.Entity("AspInlamning1.Models.Event", b =>
                 {
                     b.HasOne("AspInlamning1.Models.Organizer", "Organizer")
-                        .WithMany()
+                        .WithMany("Events")
                         .HasForeignKey("OrganizerId");
 
                     b.Navigation("Organizer");
+                });
+
+            modelBuilder.Entity("AttendeeEvent", b =>
+                {
+                    b.HasOne("AspInlamning1.Models.Attendee", null)
+                        .WithMany()
+                        .HasForeignKey("AttendeesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AspInlamning1.Models.Event", null)
+                        .WithMany()
+                        .HasForeignKey("EventsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AspInlamning1.Models.Organizer", b =>
+                {
+                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }
